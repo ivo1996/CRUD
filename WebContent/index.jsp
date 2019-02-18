@@ -10,7 +10,7 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(function () {
-                $("#datepicker").datepicker();
+                $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
             });
         </script>
 </head>
@@ -34,7 +34,7 @@ $(function(){
 <h3>Insert User</h3>
 <input type="text" name="FirstName" placeholder="First Name"/><br>
 <input type="text" name="LastName" placeholder="Last Name"/><br>
-<input type="text" name="BirthDate" id="datepicker" placeholder="Birth Date"/><br>
+<input type="Date" name="BirthDate" id="datepicker" placeholder="Birth Date"/><br>
 <input type="text" name="Phone" placeholder="Phone number"/><br>
 <input type="text" name="Email" placeholder="E-mail address"/><br>
 <input type="submit" name="submit" value="Submit"><br>

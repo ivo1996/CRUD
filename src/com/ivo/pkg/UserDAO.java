@@ -9,13 +9,27 @@ public class UserDAO {
 	static PreparedStatement pst;
 	static ResultSet rs;
 	
-	public static ArrayList<UserBean> getUsers() {
+	public static ArrayList<UserBean> getUsers(String sort) {
 		ArrayList<UserBean> people = new ArrayList<UserBean>();
 		
 		try {
+			if(sort==null) {
 			conn=ConnectionProvider.getCon();
-			pst=conn.prepareStatement("select * from \"People\" ");
+			pst=conn.prepareStatement("select * from \"People\" order by \"Id\" ");
 			rs=pst.executeQuery();
+			}
+			else if(sort.equals("Last Name"))
+			{
+			conn=ConnectionProvider.getCon();
+			pst=conn.prepareStatement("select * from \"People\" order by \"LastName\" ");
+			rs=pst.executeQuery();
+			}
+			else if(sort.equals("Birth Date"))
+			{
+			conn=ConnectionProvider.getCon();
+			pst=conn.prepareStatement("select * from \"People\" order by \"BirthDate\" ");
+			rs=pst.executeQuery();
+			}
 			while(rs.next()) {
 				UserBean u = new UserBean();
 				
@@ -118,5 +132,38 @@ public class UserDAO {
 			
 			}
 		return u;
+	}
+	
+	public static ArrayList<UserBean> search(String key) {
+		ArrayList<UserBean> people = new ArrayList<UserBean>();
+		
+		try {
+			java.sql.Date dateKey = toSQL.convert(key);
+			conn=ConnectionProvider.getCon();
+			pst=conn.prepareStatement("select * from \"People\" where \"FirstName\" like '"+key+"'"
+					+ " or \"LastName\" like '"+key+"'"
+							+ " or \"BirthDate\" = ?"
+									+ " or \"Phone\" like '"+key+"'"
+											+ " or \"Email\" like '"+key+"'");
+			pst.setDate(1, dateKey);
+			rs=pst.executeQuery();
+			while(rs.next()) {
+				UserBean u = new UserBean();
+				
+				u.setId(rs.getInt(1));
+				u.setFirstName(rs.getString(2));
+				u.setLastName(rs.getString(3));
+				u.setBirthDate(rs.getString(4));
+				u.setPhone(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				
+				people.add(u);
+			}
+			conn.close();
+			}catch(Exception ex) {
+				System.out.println(ex);
+			
+			}
+		return people;
 	}
 }

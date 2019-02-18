@@ -22,6 +22,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.jsp">Insert Data</a></li>
         <li><a href="showRecords">Show Records</a></li>
+       <li><form action="showRecords" method="post"><input style="margin-top:6%;"name="search" type="text" placeholder="Search.."></form></li>
       </ul>
     </div>
   </div>

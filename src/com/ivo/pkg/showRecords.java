@@ -29,7 +29,8 @@ public class showRecords extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		new UserDAO();
-		request.setAttribute("usrList", UserDAO.getUsers());
+		String sortBy=request.getParameter("sort");
+		request.setAttribute("usrList", UserDAO.getUsers(sortBy));
 		RequestDispatcher rd=request.getRequestDispatcher("view.jsp");
 		rd.forward(request, response);
 	}
@@ -38,7 +39,20 @@ public class showRecords extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		new UserDAO();
+		RequestDispatcher rd;
+		String sortBy=request.getParameter("sort");
+		if(request.getParameter("search")!=null)
+		{
+			request.setAttribute("usrList", UserDAO.search(request.getParameter("search")));
+			rd=request.getRequestDispatcher("view.jsp");
+			rd.forward(request, response);
+		}
+		else {
+		request.setAttribute("usrList", UserDAO.getUsers(sortBy));
+		rd=request.getRequestDispatcher("view.jsp");
+		rd.forward(request, response);
+		}
 	}
 
 }

@@ -1,0 +1,7 @@
+create table people(
+Id serial primary key,
+FirstName varchar(255),
+LastName varchar(255),
+BirthDate date,
+Phone varchar(255),
+Email varchar(255))

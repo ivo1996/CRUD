@@ -5,9 +5,10 @@ import java.text.SimpleDateFormat;
 
 public class toSQL {
 	public static java.sql.Date convert(String birthDate) {
-		String newDate = birthDate.replace("/", "-");
-		
-			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+		String newDate = birthDate.replaceAll("[^\\d-]", "");
+		java.sql.Date sqlDate = null;
+		if(newDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			//surround below line with try catch block as below code throws checked exception
 			java.util.Date sDate = null;
 			try {
@@ -16,8 +17,8 @@ public class toSQL {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			java.sql.Date sqlDate = new java.sql.Date(sDate.getTime());
-		
+			sqlDate = new java.sql.Date(sDate.getTime());
+		}
 		return sqlDate;
 		
 	}

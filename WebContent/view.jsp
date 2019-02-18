@@ -27,7 +27,12 @@ $(function(){
 <!--end of Navigation bar-->
 <div style="margin-left: 30px;" >
 <table style="width:100%">
-<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Birth Date</th><th>Phone Number</th><th>E-mail Address</th></tr>
+<tr><th>ID</th><th>First Name</th>
+<th><a style="color: rgb(0,0,0)" href="showRecords?sort=Last Name" >Last Name</a></th>
+<th><a style="color: rgb(0,0,0)" href="showRecords?sort=Birth Date" >Birth Date</a></th>
+<th>Phone Number</th>
+<th>E-mail Address</th></tr>
+
 <% for(int i=0;i<usrList.size();i++){%>
 	<tr>
 	<%UserBean usr = (UserBean)usrList.get(i);%>

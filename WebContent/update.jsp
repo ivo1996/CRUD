@@ -20,7 +20,7 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
                 <script>
             $(function () {
-                $("#datepicker").datepicker();
+                $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
             });
         </script>
 <title>Edit User</title>
@@ -42,11 +42,12 @@ $(function(){
 <h3>Edit User</h3>
 <input type="text" name="FirstName" value="<%=FirstName%>"/><br>
 <input type="text" name="LastName" value="<%=LastName%>"/><br>
-<input type="text" style="width: 350px" name="BirthDate" id="datepicker" placeholder="Retype or insert new date! /current date=<%=BirthDate%>/"/><br>
+<input type="Date" name="BirthDate" id="datepicker" value="<%=BirthDate%>"/><br>
 <input type="text" name="Phone" value="<%=Phone%>"/><br>
 <input type="text" name="Email" value="<%=Email%>"/><br>
 <input type="hidden" name="Id" value="<%=Id %>"/><br>
 <input type="submit" name="submit" value="Update"><br>
+${message }
 </div>
 </form>
 </head>

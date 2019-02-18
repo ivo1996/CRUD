@@ -37,7 +37,7 @@ public class deleteRecord extends HttpServlet {
 		// TODO Auto-generated method stub
 		String ID=request.getParameter("usrID");
 		UserDAO.deleteRecord(ID);
-		request.getRequestDispatcher("index.jsp").forward(request,response);
+		request.getRequestDispatcher("showRecords").forward(request,response);
 		doGet(request, response);
 	}
 
