@@ -1,7 +1,7 @@
 package com.ivo.pkg;
 import java.sql.*;
 import java.util.ArrayList;
-//import java.util.ArrayList;
+
 
 
 public class UserDAO {
@@ -9,10 +9,13 @@ public class UserDAO {
 	static PreparedStatement pst;
 	static ResultSet rs;
 	
+	//Method that retreives all information from the Database, it uses of type ArrayList and uses a sort String argument
+	//So that a proper sort is done
 	public static ArrayList<UserBean> getUsers(String sort) {
 		ArrayList<UserBean> people = new ArrayList<UserBean>();
 		
 		try {
+			//Cases for the type of sorts, null means that no sort was opted for and it is the default preview - by ID.
 			if(sort==null) {
 			conn=ConnectionProvider.getCon();
 			pst=conn.prepareStatement("select * from \"People\" order by \"Id\" ");
@@ -30,17 +33,18 @@ public class UserDAO {
 			pst=conn.prepareStatement("select * from \"People\" order by \"BirthDate\" ");
 			rs=pst.executeQuery();
 			}
+			//Loop that extracts all the data from the resultSet, fills in an object and adds it to the ArrayList.
 			while(rs.next()) {
-				UserBean u = new UserBean();
+				UserBean user = new UserBean();
 				
-				u.setId(rs.getInt(1));
-				u.setFirstName(rs.getString(2));
-				u.setLastName(rs.getString(3));
-				u.setBirthDate(rs.getString(4));
-				u.setPhone(rs.getString(5));
-				u.setEmail(rs.getString(6));
+				user.setId(rs.getInt(1));
+				user.setFirstName(rs.getString(2));
+				user.setLastName(rs.getString(3));
+				user.setBirthDate(rs.getString(4));
+				user.setPhone(rs.getString(5));
+				user.setEmail(rs.getString(6));
 				
-				people.add(u);
+				people.add(user);
 			}
 			conn.close();
 			}catch(Exception ex) {
@@ -50,7 +54,7 @@ public class UserDAO {
 		return people;
 	}
 	
-	
+	//Method to insert a new row, takes an object of type UserBean as argument.
 	public static int insertUser(UserBean u) {
 		int status=0;
 		try {
@@ -72,6 +76,7 @@ public class UserDAO {
 		return status;
 	}
 	
+	//Method to edit a row of information
 	public static int updateRecord(UserBean u, String id) {
 		int status=0;
 		try {
@@ -93,6 +98,7 @@ public class UserDAO {
 		return status;
 	}
 	
+	//Method that drops a row from the Database
 	public static int deleteRecord(String usrID) {
 		int status=0;
 		int intID=Integer.parseInt(usrID);
@@ -109,6 +115,7 @@ public class UserDAO {
 		return status;
 	}
 	
+	//Method used to display the information of a single desired row, used for update.jsp
 	public static UserBean getUser(String id) {
 		UserBean u = new UserBean();
 		int intId=Integer.parseInt(id);		
@@ -134,6 +141,7 @@ public class UserDAO {
 		return u;
 	}
 	
+	//Method used for the search bar
 	public static ArrayList<UserBean> search(String key) {
 		ArrayList<UserBean> people = new ArrayList<UserBean>();
 		

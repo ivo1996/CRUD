@@ -8,49 +8,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class updateServlet
- */
+
 @WebServlet("/updateServlet")
 public class updateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public updateServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	//Page is accessed from update.jsp and both sets and gets parameters for a single row from the Database
+	//It is done that way so that the values of the input fields are not lost upon a refresh of the page which
+	//might be necessary due to the fact that a message for validation has to be shown.
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//gets all parameters
 		String usrID=request.getParameter("Id");
-		int intID = Integer.parseInt(usrID);
 		String message = "Incorrect field: ";
-		//int intID = Integer.parseInt(usrID);
 		UserBean u = new UserBean();
+		int intID = Integer.parseInt(usrID);
 		String firstName = request.getParameter("FirstName");
 		String lastName = request.getParameter("LastName");
 		String birthDate = request.getParameter("BirthDate");
 		String phone = request.getParameter("Phone");
 		String email = request.getParameter("Email");
+		//Sets all attributes
 		request.setAttribute("Id", intID);
 		request.setAttribute("FirstName", firstName);
 		request.setAttribute("LastName", lastName);
 		request.setAttribute("BirthDate", birthDate);
 		request.setAttribute("Phone", phone);
 		request.setAttribute("Email", email);
+		//Validation used to create a proper message.
 		if(!validate.validateName(firstName)) {
 			message=message+"First Name.";
 		}
@@ -67,6 +58,7 @@ public class updateServlet extends HttpServlet {
 			message=message+"Email Address ";
 			request.setAttribute("message", message);
 		}
+		//Final validation before executing query
 		else if(validate.validateName(firstName)&&validate.validateName(lastName)&&validate.validateDate(birthDate)&&validate.validateNumber(phone)&&validate.validateEmail(email)){
 		u.setFirstName(firstName);
 		u.setLastName(lastName);

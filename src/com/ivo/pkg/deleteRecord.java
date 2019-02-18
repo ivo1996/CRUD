@@ -7,36 +7,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class deleteRecord
- */
+
 @WebServlet("/deleteRecord")
 public class deleteRecord extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public deleteRecord() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		//Receives ID as a string from the page view.jsp
 		String ID=request.getParameter("usrID");
+		//Executes the method deleteRecord from UserDAO class
 		UserDAO.deleteRecord(ID);
+		//Forwards to servlet showRecords
 		request.getRequestDispatcher("showRecords").forward(request,response);
 		doGet(request, response);
 	}

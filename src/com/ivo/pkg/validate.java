@@ -1,6 +1,7 @@
 package com.ivo.pkg;
 
 
+//Class that is used to validate Emails, Names, Numbers and Dates with the help of regex expressions
 public class validate {
 
 

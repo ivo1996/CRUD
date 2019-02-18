@@ -1,4 +1,7 @@
 package com.ivo.pkg;
+//Declarations for the UserBean class which is used to store information for a row of the Database
+//Declarations for getters and setters
+
 
 public class UserBean {
 int Id;
